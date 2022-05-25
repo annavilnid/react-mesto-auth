@@ -1,0 +1,4 @@
+.card__like-button_active {
+   background: transparent url("../../../../images/icon-like-black.svg");
+   opacity: 1;
+  }
