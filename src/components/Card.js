@@ -1,10 +1,17 @@
 import React from "react"
 
-function Card({card, onCardClick}) {
+function Card({card, onCardClick, onCardDelite}) {
 
+//Функции которые были проброшены из App через Main
 function handleClick() {
-  onCardClick(card);}  
+  onCardClick(card);
+}  
 
+function handleDelite() {
+    onCardDelite(card);
+}  
+
+//Разметка
   return (
     <li className="elements__card card">
       <img className="card__image" src={card.link} alt={card.name} onClick={handleClick}/> 
@@ -15,7 +22,7 @@ function handleClick() {
           <p className="card__like-counter">{card.likes.length}</p>
         </div>
       </div>
-      <button className="card__remove-button" type="button"></button>
+      <button className="card__remove-button" type="button" onClick={handleDelite}></button>
     </li>
   )
 }

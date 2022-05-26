@@ -1,8 +1,10 @@
 import React from "react"
 
+
 function ImagePopup({name, card, onClose}) {
+// Разметка.
   return(
-    <div className={`popup popup_type_${name} ${card ? 'popup_is-opened' : false}`}>
+    <div className={`popup popup_type_${name} ${card? 'popup_is-opened' : false}`}>
       <div className="popup__wapper">
         <button className="popup__close-button" type="button" aria-label="закрыть" onClick={onClose}></button>
         <figure className="popup__figure">

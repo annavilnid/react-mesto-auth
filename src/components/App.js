@@ -7,12 +7,13 @@ import ImagePopup from './ImagePopup';
 
 function App() {
   // Хуки, управляющие внутренним состоянием.
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpe] = React.useState(false)
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
-  const [selectedCard, setSelectedCard] = React.useState(false)
-
-  //Функции 
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpe] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [deliteCard, setDeliteCard] = React.useState(false);
+  
+  // Функции переключающие состояние при открытии попапов.
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true)
   }
@@ -29,13 +30,19 @@ function App() {
     setSelectedCard(card);
   };
 
-  function closeAllPopups(card) {
+  function handleCardDelite(card) {
+    setDeliteCard(card);
+  }
+  // Функции переключающие состояние при закртытии попапов.
+  function closeAllPopups() {
     setEditProfilePopupOpen(false)
     setEditAvatarPopupOpe(false)
     setAddPlacePopupOpen(false)
-    setSelectedCard(!card)
+    setSelectedCard(false)
+    setDeliteCard(false)
   }
-
+  
+  // Разметка.
   return (
     <div className="page">
       <Header />
@@ -44,6 +51,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
+        onCardDelite={handleCardDelite}
       />
       <PopupWithForm
         isOpen={isEditProfilePopupOpen}
@@ -93,6 +101,14 @@ function App() {
           <span className="popup__error link-error"></span>
           </>
         }
+      />
+      <PopupWithForm
+        isOpen={deliteCard}
+        name={'confirm-delete'}
+        title={'Вы уверены?'}
+        formname={'popupFormConfirm'}
+        btnName={'Да'}
+        onClose={closeAllPopups}
       />
       <ImagePopup
         name={'zoom-card'}
