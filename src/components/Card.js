@@ -1,14 +1,14 @@
 import React from "react"
 
-function Card({card, onCardClick, onCardDelite}) {
+function Card({card, onCardClick, onCardDelete}) {
 
 //Функции которые были проброшены из App через Main
 function handleClick() {
   onCardClick(card);
 }  
 
-function handleDelite() {
-    onCardDelite(card);
+function handleDelete() {
+    onCardDelete(card);
 }  
 
 //Разметка
@@ -22,7 +22,7 @@ function handleDelite() {
           <p className="card__like-counter">{card.likes.length}</p>
         </div>
       </div>
-      <button className="card__remove-button" type="button" onClick={handleDelite}></button>
+      <button className="card__remove-button" type="button" onClick={handleDelete}></button>
     </li>
   )
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function PopupWithForm({ name, title, isOpen, onClose, formname, btnName, children}) {
+function PopupWithForm({ name, title, isOpen, onClose, formname, btnName="Сохранить", children}) {
 // Разметка 
   return (
-     <div className={`popup popup_type_${name} ${isOpen ? 'popup_is-opened' : false}`}>
+     <div className={`popup popup_type_${name} ${isOpen && 'popup_is-opened'}`}>
       <div className="popup__container">
         <button className="popup__close-button" type="button" aria-label="закрыть" onClick={onClose} ></button>
         <h2 className="popup__title">{title}</h2>

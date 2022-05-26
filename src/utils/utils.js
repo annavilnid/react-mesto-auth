@@ -1,4 +1,4 @@
-export const popupElementProfile = document.querySelector('.popup_action_edit-profile');
+
 export const popupOpenButtonElementProfile = document.querySelector('.profile__edit-button');
 export const popupEditButtonAvatarProfile = document.querySelector('.profile__avatar-edit-button');
 const infoElementProfile = document.querySelector('.profile__info');
@@ -9,15 +9,10 @@ export const formElementProfile = document.querySelector('.popup__form_action_ed
 export const formElementAvatar = document.querySelector('.popup__form_action_edit-avatar');
 export const nameInputProfile = formElementProfile.querySelector('.popup__input_data_name');
 export const aboutInputProfile = formElementProfile.querySelector('.popup__input_data_about');
-export const popupElementCard = document.querySelector('.popup_action_add-card');
 export const popupAddButtonCard = document.querySelector('.profile__add-button');
 export const formElementCard = document.querySelector('.popup__form_action_add-card');
 export const placeInputCard = formElementCard.querySelector('.popup__input_data_place');
 export const linkInputCard = formElementCard.querySelector('.popup__input_data_place-link');
-export const popupZoom = document.querySelector('.popup_action_zoom-card');
-export const imageAttribure = popupZoom.querySelector('.popup__image');
-export const imageDescription = popupZoom.querySelector('.popup__figcaption');
-export const popupCloseButtonZoomCard = popupZoom.querySelector('.popup__close-button');
 export const cardContainer = document.querySelector('.elements__list');
 export const popups = document.querySelectorAll('.popup');
 

@@ -1,17 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from './Card.js'
 import api from '../utils/Api.js';
 
-
-function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardDelite}) {
+function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardDelete}) {
 // Хуки, управляющие внутренним состоянием.
-const [userAvatar,  setUserAvatar] = React.useState(' ');
-const [userName,  setUserName] = React.useState(' ');
-const [userDescription,  setUserDescription] = React.useState(' ');
-const [userCards, setUserCards] = React.useState([ ]);
+const [userAvatar, setUserAvatar] = useState(' ');
+const [userName, setUserName] = useState(' ');
+const [userDescription, setUserDescription] = useState(' ');
+const [userCards, setUserCards] = useState([ ]);
 
 // Хуки, при загрузке страницы получаем данные пользователя и карточек
-React.useEffect(() => {
+useEffect(() => {
   api.getDataApi()
   .then(([cardsData, userData]) => {
     setUserAvatar(userData.avatar); 
@@ -42,12 +41,14 @@ React.useEffect(() => {
     
       <section className="elements">
         <ul className="elements__list">
-        {userCards.map((card) => <Card
+        {userCards.map((card) => (
+        <Card
         key={card._id}
         card={card} 
         onCardClick={onCardClick}
-        onCardDelite={onCardDelite}
-        />)}
+        onCardDelete={onCardDelete}
+        />
+        ))}
         </ul>
       </section> 
     </main>
