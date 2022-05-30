@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/mesto-react/static/css/main.e7509c74.css",
+    "main.js": "/mesto-react/static/js/main.600d12da.js",
+    "static/js/787.5530211c.chunk.js": "/mesto-react/static/js/787.5530211c.chunk.js",
+    "static/media/Inter-Medium.woff": "/mesto-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/mesto-react/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/mesto-react/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/mesto-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/mesto-react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/mesto-react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/header-logo.svg": "/mesto-react/static/media/header-logo.b893ada38d2b37fd0ead861e2e732904.svg",
+    "index.html": "/mesto-react/index.html",
+    "static/media/remove-button.svg": "/mesto-react/static/media/remove-button.823b0cf1b0b7e9cb7cad.svg",
+    "static/media/icon-like.svg": "/mesto-react/static/media/icon-like.c783fa7a0eb2e210dd2d.svg",
+    "static/media/icon-like-black.svg": "/mesto-react/static/media/icon-like-black.7d1e86040318b9040bd1.svg",
+    "static/media/edit-button-avatar.svg": "/mesto-react/static/media/edit-button-avatar.a086f758840ae814ecde.svg",
+    "static/media/close-icon.svg": "/mesto-react/static/media/close-icon.b380cda2c57ff8cd6d80.svg",
+    "static/media/edit-button.svg": "/mesto-react/static/media/edit-button.204bc56b294439be7082.svg",
+    "static/media/icon-plus.svg": "/mesto-react/static/media/icon-plus.10113c8dbb37d389a424.svg",
+    "main.e7509c74.css.map": "/mesto-react/static/css/main.e7509c74.css.map",
+    "main.600d12da.js.map": "/mesto-react/static/js/main.600d12da.js.map",
+    "787.5530211c.chunk.js.map": "/mesto-react/static/js/787.5530211c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7509c74.css",
+    "static/js/main.600d12da.js"
+  ]
+}
