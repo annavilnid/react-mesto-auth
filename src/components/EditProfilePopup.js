@@ -6,15 +6,14 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   // Подписываемся на контекст CurrentUserContext
   const currentUser = useContext(CurrentUserContext);
 
-  // Стейт, в котором содержится значение инпута импута имя
+  // Стейт, в котором содержится значение инпутов
   const [valueName, setValueName] = useState('');
-
-  // Стейт, в котором содержится значение инпута осебе
   const [valueAbout, setValueAbout] = useState('');
 
-  // Обработчик изменения инпута имени обновляет стейт
+  // Обработчики изменения инпутов обновляют стейты
   function handleChangeName(e) {
     setValueName(e.target.value);
+    setValueAbout(e.target.value);
   }
 
   // Обработчик изменения инпута о себе обновляет стейт
@@ -34,14 +33,14 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       about: valueAbout,
     });
   } 
-
+  
+  //Данные инпутов при открытии
   useEffect(() => {
     setValueName(currentUser.name);
     setValueAbout(currentUser.about);
   }, [currentUser]); 
 
-
-  // разметка
+  // Разметка
   return (
     <PopupWithForm
     isOpen={isOpen}

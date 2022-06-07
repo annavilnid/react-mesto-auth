@@ -1,11 +1,11 @@
 import React from "react"
 
-// функция возвращающая актуальную дату
+// Функция возвращающая актуальную дату
 function getCurrentYear() {
   return new Date().getFullYear();
    };
 
-// разметка
+// Разметка
 function Footer() {
     return (
       <footer className="footer">

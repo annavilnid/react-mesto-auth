@@ -1,20 +1,15 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm'
 
-function ConfirmPopup({isOpen, onClose, onDelete}) {
+function ConfirmPopup({isOpen, onClose, onConfirmDelete}) {
 
-const [cardForDelete, setCardForDelete] = React.useState({})
+  //Обработчик формы
+  function handleSubmit(e) {
+    e.preventDefault();
+    onConfirmDelete()
+  }
 
-function handleCardDeleteRequest(card) {
-    setCardForDelete(card);
-    //setIsConfirmPopupOpen(true);
-}
-
-const handleCardDelete = (e) => {
-   e.preventDefault(e);
-   onDelete(cardForDelete)
-}
-
+  //Разметка
   return (
     <PopupWithForm
     isOpen={isOpen}
@@ -23,8 +18,7 @@ const handleCardDelete = (e) => {
     formName={'popupFormConfirm'}
     btnName={'Да'}
     onClose={onClose}
-    onSubmit={handleCardDelete}
-    />
+    onSubmit={handleSubmit} />
   )
 }
 

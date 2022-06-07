@@ -16,11 +16,12 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpe] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [deleteCard, setDeleteCard] = useState(null);
+  const [deleteCard, setDeleteCard] = useState({});
+  const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([ ]);
   
-  //получение данных при первичном открытии страницы
+  // Получение данных при первичном открытии страницы
   useEffect(() => {
     api.getDataApi()
      .then(([cardsData, userData]) => {
@@ -45,13 +46,16 @@ function App() {
     setAddPlacePopupOpen(true)
   }
 
+  // Функция переключающая состояние при клике на карточку
   function handleCardClick(card) {
     setSelectedCard(card);
   };
-
-   function handleCardDeleteClick(card) {
-      setDeleteCard(card);
-   }; 
+  
+  // Функция переключающая состояние при удалении карточки
+  function handleCardDeleteClick(card) {
+    setConfirmPopupOpen(true)
+    setDeleteCard(card);
+    }; 
 
   // Функция переключающия состояние при закртытии попапов.
   function closeAllPopups() {
@@ -59,88 +63,87 @@ function App() {
     setEditAvatarPopupOpe(false)
     setAddPlacePopupOpen(false)
     setSelectedCard({})
-    setDeleteCard(null)
+    setConfirmPopupOpen(false)
   }
 
-  //!!Возможно нужно отредактировать функция должна срабатывать при изменении пользователя(Обработчик изменений)
+  // Обработчик изменения информации о пользователе
   function handleUpdateUser(newUserData) {
     api.setUserInfoApi(newUserData)
       .then((newUserData) => {
         setCurrentUser(newUserData); 
-        //closeAllPopups();
+        closeAllPopups();
       })
       .catch(err => {
         console.log(err);
       })
-    closeAllPopups();
   }
-
+  
+  // Обработчик изменения аватара
   function handleUpdateAvatar(newUserAvatar) {
     api.setUserAvatarApi(newUserAvatar)
       .then((newUserAvatar) => {
         setCurrentUser(newUserAvatar); 
-        //closeAllPopups();
+        closeAllPopups();
       })
       .catch(err => {
         console.log(err);
       })
-    closeAllPopups();
   }
 
-
+  // Обработчик добавления новой карточки
   function handleAddPlace(newCard) {
     api.addNewCardApi(newCard)
       .then((newCard) => {
         setCards([newCard, ...cards]); 
-        //closeAllPopups();
+        closeAllPopups();
       })
       .catch(err => {
         console.log(err);
       })
-    closeAllPopups();
   }
 
-
-// // Хуки, при загрузке страницы получаем данные пользователя и карточек
-// useEffect(() => {
-//   api.getDataApi()
-//   .then(([cardsData, userData]) => {
-//     setCards(cardsData);
-//    })
-//   .catch(err => {
-//   console.log(err);
-//   })
-//   }, [])
-
-// функция отвечающая за удаление и добавления лайка
-function handleCardLike(card) {
-  // Снова проверяем, есть ли уже лайк на этой карточке
+  // Функция отвечающая за удаление и добавления лайка
+  function handleCardLike(card) {
+  // Проверяем, есть ли уже лайк на этой карточке
   const isLiked = card.likes.some(i => i._id === currentUser._id);
+  
   if (!isLiked) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.likeApi(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    api.likeApi(card._id)
+      .then((newCard) => { 
+        setCards((state) => state.map((c) => 
+        c._id === card._id ? newCard : c));
+      })
+      .catch(err => {
+        console.log(err);
+      })
   } else {
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.dislikeApi(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    api.dislikeApi(card._id)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => 
+        c._id === card._id ? newCard : c));
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 } 
 
-//функция отвечающая за удаление карточки
-const handleCardDelete = (card) => { 
-  api.deleteCardApi(card._id).then(() => {
-      // используя методы массива, создаем новый массив карточек newCards, где не будет карточки, которую мы только что удалили */
-      const newCards = cards.filter(i => i._id !== card._id);
-      setCards(newCards);
-  });
-}
+  //Функция отвечающая за удаление карточки
+  const handleConfirmDelete = () => { 
+    api.deleteCardApi(deleteCard._id)
+      .then(() => {
+        //используя методы массива, создаем новый массив карточек newCards, где не будет карточки, которую мы только что удалили */
+        const newCards = cards.filter(i => i._id !== deleteCard._id);
+        setCards(newCards);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
-
-  
-  // Разметка.
+  // Разметка
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -150,16 +153,9 @@ const handleCardDelete = (card) => {
       onEditAvatar={handleEditAvatarClick}
       onAddPlace={handleAddPlaceClick}
       onCardClick={handleCardClick}
-
       cards={cards}
       onCardDelete={handleCardDeleteClick}
       onCardLike={handleCardLike}
-      
-      
-      //onCardDelete={handleCardDelete}
-
-
-      
       />
       <EditProfilePopup
       isOpen={isEditProfilePopupOpen} 
@@ -172,18 +168,15 @@ const handleCardDelete = (card) => {
       <AddPlacePopup
       isOpen={isAddPlacePopupOpen}
       onAddPlace={handleAddPlace} 
-      onClose={closeAllPopups}/>
+      onClose={closeAllPopups} />
       <ConfirmPopup
-      //onCardDelete={handleCardDelete}
-      isOpen={deleteCard}
+      isOpen={isConfirmPopupOpen}
       onClose={closeAllPopups}
-      onDelete={handleCardDelete}
-      />
+      onConfirmDelete={handleConfirmDelete} />
       <ImagePopup
       name={'zoom-card'}
       card={selectedCard}
-      onClose={closeAllPopups}
-      />
+      onClose={closeAllPopups} />
       <Footer />
     </div>
     </CurrentUserContext.Provider>
