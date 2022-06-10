@@ -1,7 +1,7 @@
 import React, {useRef} from "react"
 import PopupWithForm from './PopupWithForm'
 
-function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
+function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, switchLoader}) {
   
   // Реф, доступ к DOM-узлу
   const textInput = useRef('');
@@ -14,6 +14,11 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
     });
     textInput.current.value = ''
   } 
+
+  function handleClose() {
+    onClose()
+    textInput.current.value = ''
+  }
   
   // Разметка
   return (
@@ -22,7 +27,8 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
     name={'edit-avatar'}
     title={'Обновить аватар'}
     formName={'popupFormAvatar'}
-    onClose={onClose}
+    onClose={handleClose}
+    switchLoader={switchLoader}
     onSubmit={handleSubmit}>
       <input className="popup__input popup__input_data_about" id="avatar" name="avatar" type="url" required placeholder="Ссылка на картинку" ref={textInput} />
       <span className="popup__error avatar-error"></span> 

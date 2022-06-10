@@ -16,42 +16,6 @@ export const linkInputCard = formElementCard.querySelector('.popup__input_data_p
 export const cardContainer = document.querySelector('.elements__list');
 export const popups = document.querySelectorAll('.popup');
 
-
-
-// import altai from '../images/place-altai.jpg';
-// import buryatia from '../images/place-buryatia.jpg';
-// import dagestan from '../images/place-dagestan.jpg';
-// import kaliningrad from '../images/place-kaliningrad.jpg';
-// import sakhalin from '../images/place-sakhalin.jpg';
-// import tatarstan from '../images/place-tatarstan.jpg';
-
-// export const initialCards = [
-//   {
-//     name: 'Татарстан',
-//     link: tatarstan
-//   },
-//   {
-//     name: 'Бурятия',
-//     link: buryatia
-//   },
-//   {
-//     name: 'Дагестан',
-//     link: dagestan
-//   },
-//   {
-//     name: 'Калиниград',
-//     link: kaliningrad
-//   },
-//   {
-//     name: 'Сахалин',
-//     link: sakhalin
-//   },
-//   {
-//     name: 'Алтай',
-//     link: altai
-//   }
-// ];
-
 export const validationSettings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',

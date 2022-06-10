@@ -28,7 +28,6 @@ function handleClick() {
 }  
 
 function handleDelete() {
-    console.log(card)
     onCardDelete(card);
 }  
 

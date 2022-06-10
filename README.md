@@ -28,3 +28,5 @@
 Для просмотра откройте в браузере.
 
 * npm run build
+
+* [Ссылка на проект](https://annavilnid.github.io/mesto-react/)

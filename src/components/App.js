@@ -20,6 +20,7 @@ function App() {
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([ ]);
+  const [loader, setLoader] = useState(false);
   
   // Получение данных при первичном открытии страницы
   useEffect(() => {
@@ -62,12 +63,12 @@ function App() {
     setEditProfilePopupOpen(false)
     setEditAvatarPopupOpe(false)
     setAddPlacePopupOpen(false)
-    setSelectedCard({})
     setConfirmPopupOpen(false)
-  }
-
+    }
+  
   // Обработчик изменения информации о пользователе
   function handleUpdateUser(newUserData) {
+    setLoader(true)
     api.setUserInfoApi(newUserData)
       .then((newUserData) => {
         setCurrentUser(newUserData); 
@@ -76,10 +77,12 @@ function App() {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => setLoader(false))
   }
   
   // Обработчик изменения аватара
   function handleUpdateAvatar(newUserAvatar) {
+    setLoader(true)
     api.setUserAvatarApi(newUserAvatar)
       .then((newUserAvatar) => {
         setCurrentUser(newUserAvatar); 
@@ -88,10 +91,12 @@ function App() {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => setLoader(false))
   }
 
   // Обработчик добавления новой карточки
   function handleAddPlace(newCard) {
+    setLoader(true)
     api.addNewCardApi(newCard)
       .then((newCard) => {
         setCards([newCard, ...cards]); 
@@ -100,6 +105,7 @@ function App() {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => setLoader(false))
   }
 
   // Функция отвечающая за удаление и добавления лайка
@@ -137,6 +143,7 @@ function App() {
         //используя методы массива, создаем новый массив карточек newCards, где не будет карточки, которую мы только что удалили */
         const newCards = cards.filter(i => i._id !== deleteCard._id);
         setCards(newCards);
+        closeAllPopups();
       })
       .catch(err => {
         console.log(err);
@@ -160,15 +167,18 @@ function App() {
       <EditProfilePopup
       isOpen={isEditProfilePopupOpen} 
       onClose={closeAllPopups} 
-      onUpdateUser={handleUpdateUser} />  
+      onUpdateUser={handleUpdateUser}
+      switchLoader={loader} />  
       <EditAvatarPopup
       isOpen={isEditAvatarPopupOpen}
       onClose={closeAllPopups}
-      onUpdateAvatar={handleUpdateAvatar} />
+      onUpdateAvatar={handleUpdateAvatar} 
+      switchLoader={loader} />
       <AddPlacePopup
       isOpen={isAddPlacePopupOpen}
       onAddPlace={handleAddPlace} 
-      onClose={closeAllPopups} />
+      onClose={closeAllPopups} 
+      switchLoader={loader} />
       <ConfirmPopup
       isOpen={isConfirmPopupOpen}
       onClose={closeAllPopups}
