@@ -64,6 +64,7 @@ function App() {
     setEditAvatarPopupOpe(false)
     setAddPlacePopupOpen(false)
     setConfirmPopupOpen(false)
+    setSelectedCard({})
     }
   
   // Обработчик изменения информации о пользователе

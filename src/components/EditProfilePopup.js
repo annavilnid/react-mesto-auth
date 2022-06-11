@@ -6,6 +6,11 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
   // Валидация
   const [spanClassName, setSpanClassName] = useState('');
   const [spanClassAbout, setSpanClassAbout] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  // function handletest(data) {
+  //   settest(data);
+  // };
     
   // Подписываемся на контекст CurrentUserContext
   const currentUser = useContext(CurrentUserContext);
@@ -14,26 +19,41 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
   const [valueName, setValueName] = useState('');
   const [valueAbout, setValueAbout] = useState('');
 
-
   // Обработчики изменения инпутов обновляют стейты
   function handleChangeName(e) {
-    if (!e.target.validity.valid) {
-      setSpanClassName("_visible")
-      } else {
-      setSpanClassName("")
-      }
+    test(e)
     setValueName(e.target.value)
   }
 
   // Обработчик изменения инпута о себе обновляет стейт
   function handleChangeAbout(e) {
-    if (!e.target.validity.valid) {
-      setSpanClassAbout("_visible")
-      } else {
-      setSpanClassAbout("")
-      }
+    test(e)
     setValueAbout(e.target.value);
   }
+  
+  //валидация
+  function test(e) {
+    if (!e.target.validity.valid) {
+      setSpanClassName("_visible")
+      setIsButtonDisabled(true)
+      } else {
+      setSpanClassName("")
+      console.log(switchLoader)
+      setIsButtonDisabled(false)
+      }
+  }
+
+  
+  
+  //switchLoader ? setIsButtonDisabled(true) : setIsButtonDisabled(false)
+
+  //switchLoader ? "выключили кнопку" : "включили кнопку"
+
+
+  useEffect(() => {
+    setIsButtonDisabled (false);
+  }, []); 
+
 
   // обработчик формы профиля
   function handleSubmit(e) {
@@ -70,7 +90,9 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
     title={'Редактировать профиль'}
     formName={'popupFormProfile'}
     onClose={hendleClose}
-    switchLoader={switchLoader}>
+    switchLoader={switchLoader}
+    buttonDisabled={isButtonDisabled}
+    >
       <input className="popup__input popup__input_data_name" id="name" name="name" type="text" required placeholder="Имя"
       minLength="2" maxLength="40" value={valueName || ""} onChange={handleChangeName}/>
       <span className={`popup__error popup__error${spanClassName} name-error"`}>не проходит валидацию</span>
