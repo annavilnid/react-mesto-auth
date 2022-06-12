@@ -12,16 +12,26 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   // Хуки, управляющие внутренним состоянием.
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpe] = useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpe] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [deleteCard, setDeleteCard] = useState({});
-  const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([ ]);
   const [loader, setLoader] = useState(false);
-  
+  // Выключение кнопки для валидации
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  function handeleButtonDisabled() {
+    setIsButtonDisabled(true)
+  }
+
+  function handeleButtonEnabled() {
+    setIsButtonDisabled(false)
+  }
+ 
   // Получение данных при первичном открытии страницы
   useEffect(() => {
     api.getDataApi()
@@ -36,15 +46,15 @@ function App() {
 
   // Функции переключающие состояние при открытии попапов.
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true)
   }
 
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpe(true)
+    setIsEditAvatarPopupOpe(true)
   }
     
   function handleAddPlaceClick() {
-    setAddPlacePopupOpen(true)
+    setIsAddPlacePopupOpen(true)
   }
 
   // Функция переключающая состояние при клике на карточку
@@ -54,16 +64,16 @@ function App() {
   
   // Функция переключающая состояние при удалении карточки
   function handleCardDeleteClick(card) {
-    setConfirmPopupOpen(true)
+    setIsConfirmPopupOpen(true)
     setDeleteCard(card);
     }; 
 
   // Функция переключающия состояние при закртытии попапов.
   function closeAllPopups() {
-    setEditProfilePopupOpen(false)
-    setEditAvatarPopupOpe(false)
-    setAddPlacePopupOpen(false)
-    setConfirmPopupOpen(false)
+    setIsEditProfilePopupOpen(false)
+    setIsEditAvatarPopupOpe(false)
+    setIsAddPlacePopupOpen(false)
+    setIsConfirmPopupOpen(false)
     setSelectedCard({})
     }
   
@@ -169,7 +179,11 @@ function App() {
       isOpen={isEditProfilePopupOpen} 
       onClose={closeAllPopups} 
       onUpdateUser={handleUpdateUser}
-      switchLoader={loader} />  
+      switchLoader={loader}
+      buttonDisabled={isButtonDisabled}
+      onButtonDisabled={handeleButtonDisabled}
+      onButtonEnabled={handeleButtonEnabled}
+      />  
       <EditAvatarPopup
       isOpen={isEditAvatarPopupOpen}
       onClose={closeAllPopups}

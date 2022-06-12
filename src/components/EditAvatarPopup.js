@@ -4,20 +4,20 @@ import PopupWithForm from './PopupWithForm'
 function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, switchLoader}) {
   
   // Реф, доступ к DOM-узлу
-  const textInput = useRef('');
-  
+  const textInputAvatar = useRef('');
+
   // Обработчик формы
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar({
-      avatar: textInput.current.value,
+      avatar: textInputAvatar.current.value,
     });
-    textInput.current.value = ''
+    textInputAvatar.current.value = ''
   } 
 
   function handleClose() {
     onClose()
-    textInput.current.value = ''
+    textInputAvatar.current.value = ''
   }
   
   // Разметка
@@ -30,7 +30,7 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, switchLoader}) {
     onClose={handleClose}
     switchLoader={switchLoader}
     onSubmit={handleSubmit}>
-      <input className="popup__input popup__input_data_about" id="avatar" name="avatar" type="url" required placeholder="Ссылка на картинку" ref={textInput} />
+      <input className="popup__input popup__input_data_avatar" id="avatar" name="avatar" type="url" minLength="22" required placeholder="Ссылка на картинку" ref={textInputAvatar} />
       <span className="popup__error avatar-error"></span> 
     </PopupWithForm>
   )

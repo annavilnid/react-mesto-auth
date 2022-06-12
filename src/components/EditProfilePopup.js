@@ -2,15 +2,12 @@ import React, {useState, useContext, useEffect} from 'react';
 import PopupWithForm from './PopupWithForm'
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
+function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader, buttonDisabled, onButtonDisabled, onButtonEnabled}) {
   // Валидация
   const [spanClassName, setSpanClassName] = useState('');
   const [spanClassAbout, setSpanClassAbout] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  // function handletest(data) {
-  //   settest(data);
-  // };
+  const [errorMessageName, setErrorMessageName] = useState('');
+  const [errorMessageAbout, setErrorMessageAbout] = useState('');
     
   // Подписываемся на контекст CurrentUserContext
   const currentUser = useContext(CurrentUserContext);
@@ -21,39 +18,41 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
 
   // Обработчики изменения инпутов обновляют стейты
   function handleChangeName(e) {
-    test(e)
+    handleNameValidation(e)
     setValueName(e.target.value)
   }
 
   // Обработчик изменения инпута о себе обновляет стейт
   function handleChangeAbout(e) {
-    test(e)
+    handleAboutValidation(e)
     setValueAbout(e.target.value);
   }
   
-  //валидация
-  function test(e) {
+  //валидация инпута с именем
+  function handleNameValidation(e) {
     if (!e.target.validity.valid) {
       setSpanClassName("_visible")
-      setIsButtonDisabled(true)
+      onButtonDisabled()
+      setErrorMessageName(e.target.validationMessage)
       } else {
       setSpanClassName("")
-      console.log(switchLoader)
-      setIsButtonDisabled(false)
+      onButtonEnabled()
+      setErrorMessageName('')
       }
   }
 
-  
-  
-  //switchLoader ? setIsButtonDisabled(true) : setIsButtonDisabled(false)
-
-  //switchLoader ? "выключили кнопку" : "включили кнопку"
-
-
-  useEffect(() => {
-    setIsButtonDisabled (false);
-  }, []); 
-
+    //валидация инпута с информацией о себе
+    function handleAboutValidation(e) {
+      if (!e.target.validity.valid) {
+        setSpanClassAbout("_visible")
+        onButtonDisabled()
+        setErrorMessageAbout(e.target.validationMessage)
+        } else {
+        setSpanClassAbout("")
+        onButtonEnabled()
+        setErrorMessageAbout('')
+        }
+    }
 
   // обработчик формы профиля
   function handleSubmit(e) {
@@ -77,6 +76,9 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
   // закрытие и актуализация значений инпута для повторного открытия
   function hendleClose() {
     onClose()
+    setErrorMessageName('')
+    setErrorMessageAbout('')
+    onButtonEnabled()
     setValueName(currentUser.name);
     setValueAbout(currentUser.about);
   }
@@ -91,14 +93,14 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, switchLoader}) {
     formName={'popupFormProfile'}
     onClose={hendleClose}
     switchLoader={switchLoader}
-    buttonDisabled={isButtonDisabled}
+    buttonDisabled={buttonDisabled}
     >
       <input className="popup__input popup__input_data_name" id="name" name="name" type="text" required placeholder="Имя"
       minLength="2" maxLength="40" value={valueName || ""} onChange={handleChangeName}/>
-      <span className={`popup__error popup__error${spanClassName} name-error"`}>не проходит валидацию</span>
+      <span className={`popup__error popup__error${spanClassName} name-error"`}>{errorMessageName}</span>
       <input className="popup__input popup__input_data_about" id="about" name="about" type="text" required placeholder="О себе"
       minLength="2" maxLength="200" value={valueAbout || ""} onChange={handleChangeAbout}/>
-      <span className={`popup__error popup__error${spanClassAbout} name-error"`}>не проходит валидацию</span>
+      <span className={`popup__error popup__error${spanClassAbout} name-error"`}>{errorMessageAbout}</span>
       </PopupWithForm>
   )
 }

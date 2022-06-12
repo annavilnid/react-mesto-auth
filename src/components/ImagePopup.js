@@ -2,7 +2,7 @@ import React from "react"
 
 function ImagePopup({name, card, onClose}) {
 
-// Разметка.
+// Разметка
   return(
     <div className={`popup popup_type_${name} ${card.name && 'popup_is-opened'}`}>
       <div className="popup__wapper">
