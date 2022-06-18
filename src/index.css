@@ -88,6 +88,24 @@
 
 @import url(./blocks/footer/__info/footer__info.css);
 
+@import url(./blocks/sign/__container/sign__container.css);
+
+@import url(./blocks/sign/__title/sign__title.css);
+
+@import url(./blocks/sign/__redirect-button/sign__redirect-button.css);
+
+@import url(./blocks/sign/__form/sign__form.css);
+
+@import url(./blocks/sign/__input/sign__input.css);
+
+@import url(./blocks/sign/__save-button/sign__save-button.css);
+
+@import url(./blocks/sign/__redirection/sign__redirection.css);
+
+@import url(./blocks/sign/__text/sign__text.css);
+
+@import url(./blocks/sign/__link/sign__link.css);
+
 @import url(./blocks/page/page.css);
 
 

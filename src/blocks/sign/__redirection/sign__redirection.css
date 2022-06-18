@@ -1,0 +1,10 @@
+.sign__redirection {
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   color: #FFFFFF;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}

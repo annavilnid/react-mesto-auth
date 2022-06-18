@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Header from './Нeader';
 import Main from './Main';
 import Footer from './Footer';
@@ -7,6 +8,9 @@ import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
 import ImagePopup from './ImagePopup';
+import Register from "./Register";
+import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -23,6 +27,8 @@ function App() {
   const [loader, setLoader] = useState(false);
   // Выключение кнопки для валидации
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [loggedIn, setLoggedIn] = useState(false);
 
   function handeleButtonDisabled() {
     setIsButtonDisabled(true)
@@ -66,7 +72,7 @@ function App() {
   function handleCardDeleteClick(card) {
     setIsConfirmPopupOpen(true)
     setDeleteCard(card);
-    }; 
+    };
 
   // Функция переключающия состояние при закртытии попапов.
   function closeAllPopups() {
@@ -166,7 +172,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
       <Header />
-      <Main 
+      <Switch>
+        <ProtectedRoute
+        exact path="/"
+        component={Main}
+        loggedIn={loggedIn}
       onEditProfile={handleEditProfileClick}
       onEditAvatar={handleEditAvatarClick}
       onAddPlace={handleAddPlaceClick}
@@ -175,6 +185,13 @@ function App() {
       onCardDelete={handleCardDeleteClick}
       onCardLike={handleCardLike}
       />
+        <Route exact path="/sign-up">
+          <Register/>
+        </Route>
+      <Route exact path="/sign-in">
+        <Login />
+      </Route>
+      </Switch>
       <EditProfilePopup
       isOpen={isEditProfilePopupOpen} 
       onClose={closeAllPopups} 
@@ -202,7 +219,6 @@ function App() {
       name={'zoom-card'}
       card={selectedCard}
       onClose={closeAllPopups} />
-      <Footer />
     </div>
     </CurrentUserContext.Provider>
   );
