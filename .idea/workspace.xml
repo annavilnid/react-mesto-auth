@@ -2,26 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afd4e4d2-5335-4a7f-823a-cb8cc2959140" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__form/sign__form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__input/sign__input.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__link/sign__link.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__redirection/sign__redirection.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__save-button/sign__save-button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__text/sign__text.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/blocks/sign/__title/sign__title.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/InfoTooltip.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ProtectedRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Register.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Sign.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/blocks/header/__link/header__link.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__container/popup__container.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__container/popup__container.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__title/popup__title.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__title/popup__title.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/blocks/popup/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/popup.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InfoTooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InfoTooltip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sign.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sign.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Нeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Нeader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +86,12 @@
       <workItem from="1655473373957" duration="4151000" />
       <workItem from="1655494266495" duration="199000" />
       <workItem from="1655494736112" duration="242000" />
-      <workItem from="1655495593953" duration="31291000" />
+      <workItem from="1655495593953" duration="36659000" />
+      <workItem from="1655592316888" duration="6467000" />
+      <workItem from="1655668686132" duration="3137000" />
+      <workItem from="1655715319657" duration="27000" />
+      <workItem from="1655717525581" duration="10655000" />
+      <workItem from="1655765558385" duration="2927000" />
     </task>
     <servers />
   </component>

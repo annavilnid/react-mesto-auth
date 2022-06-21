@@ -3,6 +3,7 @@ import Card from './Card.js'
 import Footer from "./Footer";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
+
 function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards, onCardLike, onCardDelete}) {
 
   // Подписываемся на контекст CurrentUserContext

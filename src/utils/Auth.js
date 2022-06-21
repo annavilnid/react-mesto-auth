@@ -4,14 +4,14 @@ class Auth {
     this._headers = config.headers;
   }
 
+  _checkResponseAuth(res) {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  }
+
   register(dataPassword, dataEmail) {
-    console.log('запустилась региcтрация')
-    console.log(`${this._BASE_URL}/signup`)
-    console.log(this._headers)
-    console.log(JSON.stringify({
-      password: dataPassword,
-      email: dataEmail
-    }))
     return fetch(`${this._BASE_URL}/signup`, {
       method: 'POST',
       headers: this._headers,
@@ -20,20 +20,35 @@ class Auth {
         email: dataEmail
       })
     })
-      .then((response) => {
-        try {
-          if (response.status === 200) {
-            return response.json();
-          }
-        } catch (e) {
-          return (e)
-        }
-      })
-      .then((res) => {
-        return res;
-      })
-      .catch((err) => console.log(err));
+      .then(this._checkResponseAuth)
+      // .then((response) => {
+      //   console.log(response.jwt)
+      //   try {
+      //     if (response.status === 200) {
+      //       return response.json();
+      //     }
+      //   } catch (e) {
+      //     return (e)
+      //   }
+      // })
+      // .then((res) => {
+      //   console.log(res)
+      //   return res;
+      // })
+      // .catch((err) => console.log(err));
   };
+
+  authorize(dataPassword, dataEmail) {
+  return fetch(`${this._BASE_URL}/signin`, {
+    method: 'POST',
+    headers: this._headers,
+    body: JSON.stringify({
+      password: dataPassword,
+      email: dataEmail
+    })
+  })
+    .then(this._checkResponseAuth)
+};
 }
 
   const auth = new Auth({

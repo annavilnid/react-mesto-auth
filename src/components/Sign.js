@@ -1,5 +1,4 @@
 import React from "react"
-import { withRouter } from 'react-router-dom';
 
 let test = console.log('нажали');
 // Разметка
@@ -18,4 +17,4 @@ function Sign({title, btnName, onChangeEmail, onChangePassword, onSubmit, name})
   )
 }
 
-export default withRouter(Sign);
+export default Sign;

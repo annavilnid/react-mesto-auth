@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Нeader';
 import Main from './Main';
 import Footer from './Footer';
@@ -13,12 +13,15 @@ import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import auth from "../utils/Auth";
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
   // Хуки, управляющие внутренним состоянием.
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpe] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [deleteCard, setDeleteCard] = useState({});
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
@@ -80,6 +83,7 @@ function App() {
     setIsEditAvatarPopupOpe(false)
     setIsAddPlacePopupOpen(false)
     setIsConfirmPopupOpen(false)
+    setIsInfoTooltipOpen(false)
     setSelectedCard({})
     }
   
@@ -110,6 +114,61 @@ function App() {
       })
       .finally(() => setLoader(false))
   }
+
+  //____________Регистрация и Авторизация
+  const history = useHistory();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value)
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value)
+  }
+
+  function handleRegistration(e){
+    e.preventDefault()
+    console.log('Нам бы зарегестрироваться')
+    console.log(email);
+    console.log(password);
+    auth.register(password, email)
+      .then((resData) => {
+        if (resData) {
+          history.push("/sign-in");
+          setEmail('')
+          setPassword('')
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  function handleAutarization(e){
+    e.preventDefault()
+    console.log('Нам бы залогиниться')
+    console.log(email);
+    console.log(password);
+    auth.authorize(password, email)
+      .then((autData) => {
+        if (autData) {
+          console.log(autData);
+          setLoggedIn(true);
+          history.push('/');
+          setEmail('')
+          setPassword('')
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => setIsInfoTooltipOpen(true))
+  }
+  //______________
+
 
   // Обработчик добавления новой карточки
   function handleAddPlace(newCard) {
@@ -170,56 +229,73 @@ function App() {
   // Разметка
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
-      <Header />
-      <Switch>
-        <ProtectedRoute
-        exact path="/"
-        component={Main}
-        loggedIn={loggedIn}
-      onEditProfile={handleEditProfileClick}
-      onEditAvatar={handleEditAvatarClick}
-      onAddPlace={handleAddPlaceClick}
-      onCardClick={handleCardClick}
-      cards={cards}
-      onCardDelete={handleCardDeleteClick}
-      onCardLike={handleCardLike}
-      />
-        <Route exact path="/sign-up">
-          <Register/>
-        </Route>
-      <Route exact path="/sign-in">
-        <Login />
-      </Route>
-      </Switch>
-      <EditProfilePopup
-      isOpen={isEditProfilePopupOpen} 
-      onClose={closeAllPopups} 
-      onUpdateUser={handleUpdateUser}
-      switchLoader={loader}
-      buttonDisabled={isButtonDisabled}
-      onButtonDisabled={handeleButtonDisabled}
-      onButtonEnabled={handeleButtonEnabled}
-      />  
-      <EditAvatarPopup
-      isOpen={isEditAvatarPopupOpen}
-      onClose={closeAllPopups}
-      onUpdateAvatar={handleUpdateAvatar} 
-      switchLoader={loader} />
-      <AddPlacePopup
-      isOpen={isAddPlacePopupOpen}
-      onAddPlace={handleAddPlace} 
-      onClose={closeAllPopups} 
-      switchLoader={loader} />
-      <ConfirmPopup
-      isOpen={isConfirmPopupOpen}
-      onClose={closeAllPopups}
-      onConfirmDelete={handleConfirmDelete} />
-      <ImagePopup
-      name={'zoom-card'}
-      card={selectedCard}
-      onClose={closeAllPopups} />
-    </div>
+      <div className="page">
+        <Header
+        />
+        <Switch>
+          <ProtectedRoute
+            exact path="/"
+            component={Main}
+            loggedIn={loggedIn}
+            onEditProfile={handleEditProfileClick}
+            onEditAvatar={handleEditAvatarClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+            cards={cards}
+            onCardDelete={handleCardDeleteClick}
+            onCardLike={handleCardLike}
+          />
+          <Route path="/sign-up">
+            <Register
+              onChangeEmail={handleChangeEmail}
+              onChangePassword={handleChangePassword}
+              onSubmit={handleRegistration}
+            />
+          </Route>
+          <Route path="/sign-in">
+            <Login
+              onChangeEmail={handleChangeEmail}
+              onChangePassword={handleChangePassword}
+              onSubmit={handleAutarization}
+            />
+          </Route>
+          {/*  <Route exact path="/sign-up" component={withRouter(Register)} />*/}
+          {/*  <Route exact path="/sign-in" component={withRouter(Login)} />*/}
+        </Switch>
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+          switchLoader={loader}
+          buttonDisabled={isButtonDisabled}
+          onButtonDisabled={handeleButtonDisabled}
+          onButtonEnabled={handeleButtonEnabled}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          switchLoader={loader}/>
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onAddPlace={handleAddPlace}
+          onClose={closeAllPopups}
+          switchLoader={loader}/>
+        <ConfirmPopup
+          isOpen={isConfirmPopupOpen}
+          onClose={closeAllPopups}
+          onConfirmDelete={handleConfirmDelete}/>
+        <ImagePopup
+          name={'zoom-card'}
+          card={selectedCard}
+          onClose={closeAllPopups}/>
+        <InfoTooltip
+          name={'sign-in'}
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          isloggedIn={loggedIn}
+        />
+      </div>
     </CurrentUserContext.Provider>
   );
 }

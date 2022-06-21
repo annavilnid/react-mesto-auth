@@ -3,26 +3,40 @@ import Sign from "./Sign";
 import auth from "../utils/Auth";
 import { Link, withRouter } from 'react-router-dom';
 
-function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Register({onChangeEmail, onChangePassword, onSubmit}) {
+  //const [email, setEmail] = useState('');
+  //const [password, setPassword] = useState('');
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value)
-  }
+  //после регистрации направляем пользователя на страницу входа
+  // function onLogout() {
+  //   props.history.push("/sign-in");
+  // }
 
-  function handleChangePassword(e) {
-    setPassword(e.target.value)
-  }
+  // function handleChangeEmail(e) {
+  //   setEmail(e.target.value)
+  // }
+  //
+  // function handleChangePassword(e) {
+  //   setPassword(e.target.value)
+  // }
 
-  function handleSubmit(e){
-    e.preventDefault()
-    console.log('Нам бы зарегестрироваться')
-    console.log(email);
-    console.log(password);
-    auth.register(password, email);
-
-  }
+  // function handleSubmit(e){
+  //   e.preventDefault()
+  //   console.log('Нам бы зарегестрироваться')
+  //   console.log(email);
+  //   console.log(password);
+  //   auth.register(password, email)
+  //     .then((resData) => {
+  //      if (resData) {
+  //        props.history.push("/sign-in");
+  //        setEmail('')
+  //        setPassword('')
+  //      }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+ // }
 
 
 // Разметка
@@ -33,9 +47,9 @@ function Register() {
         name={'sign-up'}
         // formName={'sign-up'}
         btnName={'Зарегестрироваться'}
-        onChangeEmail={handleChangeEmail}
-        onChangePassword={handleChangePassword}
-        onSubmit={handleSubmit}
+        onChangeEmail={onChangeEmail}
+        onChangePassword={onChangePassword}
+        onSubmit={onSubmit}
       />
       <div className="sign__redirection">
         <p className="sign__text">Уже зарегистрированы?&nbsp;</p>
