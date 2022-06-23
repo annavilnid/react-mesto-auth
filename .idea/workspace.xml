@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afd4e4d2-5335-4a7f-823a-cb8cc2959140" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/blocks/header/__link/header__link.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__container/popup__container.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__container/popup__container.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/__title/popup__title.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/__title/popup__title.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/popup/popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/popup/popup.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InfoTooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InfoTooltip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sign.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sign.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Нeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Нeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +81,8 @@
       <workItem from="1655668686132" duration="3137000" />
       <workItem from="1655715319657" duration="27000" />
       <workItem from="1655717525581" duration="10655000" />
-      <workItem from="1655765558385" duration="2927000" />
+      <workItem from="1655765558385" duration="5936000" />
+      <workItem from="1655834664754" duration="9810000" />
     </task>
     <servers />
   </component>
@@ -108,5 +99,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Нeader.js</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

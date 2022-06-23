@@ -49,6 +49,17 @@ class Auth {
   })
     .then(this._checkResponseAuth)
 };
+
+  checkToken(JWT) {
+    return fetch(`${this._BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${JWT}`
+      }
+    })
+      .then(this._checkResponseAuth)
+  };
 }
 
   const auth = new Auth({
@@ -57,6 +68,7 @@ class Auth {
       'Content-Type': 'application/json'
     }
   });
+
 
 
 export default auth;

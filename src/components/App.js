@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Нeader';
 import Main from './Main';
@@ -32,12 +32,17 @@ function App() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const [loggedIn, setLoggedIn] = useState(false);
+  //Проверка токена
+  const [userEmail, setUserEmail] = React.useState('');
 
-  function handeleButtonDisabled() {
+
+  //------
+
+  function handelButtonDisabled() {
     setIsButtonDisabled(true)
   }
 
-  function handeleButtonEnabled() {
+  function handelButtonEnabled() {
     setIsButtonDisabled(false)
   }
  
@@ -147,7 +152,7 @@ function App() {
       })
   }
 
-  function handleAutarization(e){
+  function handleAuthorization(e){
     e.preventDefault()
     console.log('Нам бы залогиниться')
     console.log(email);
@@ -155,7 +160,10 @@ function App() {
     auth.authorize(password, email)
       .then((autData) => {
         if (autData) {
+          setUserEmail(email)
           console.log(autData);
+          console.log ('jwt', autData.token)
+          localStorage.setItem('jwt', autData.token);
           setLoggedIn(true);
           history.push('/');
           setEmail('')
@@ -167,7 +175,47 @@ function App() {
       })
       .finally(() => setIsInfoTooltipOpen(true))
   }
+
+  // Выход из системы
+
+  function logout() {
+    console.log('пытаемся выйти')
+    setLoggedIn(false);
+    localStorage.removeItem('jwt');
+    setUserEmail('')
+    history.push('/sign-in');
+  }
   //______________
+
+
+  const handleCheckToken = useCallback(
+    () => {
+      const token = localStorage.getItem('jwt');
+      auth.checkToken(token)
+        .then(
+          (userData) => {
+            console.log(userData);
+            setUserEmail(userData.data.email)
+            setLoggedIn(true);
+            history.push('/');
+          },
+          (err) => {
+            console.log(err);
+          }
+        )
+
+    },
+    [history],
+  )
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
+
+    if (token) {
+      handleCheckToken();
+    }
+  }, [handleCheckToken])
+  //------
 
 
   // Обработчик добавления новой карточки
@@ -231,6 +279,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header
+          loggedOut={logout}
+          email={userEmail}
         />
         <Switch>
           <ProtectedRoute
@@ -245,22 +295,22 @@ function App() {
             onCardDelete={handleCardDeleteClick}
             onCardLike={handleCardLike}
           />
-          <Route path="/sign-up">
+          <Route
+            exact path="/sign-up">
             <Register
               onChangeEmail={handleChangeEmail}
               onChangePassword={handleChangePassword}
               onSubmit={handleRegistration}
             />
           </Route>
-          <Route path="/sign-in">
+          <Route
+            exact path="/sign-in">
             <Login
               onChangeEmail={handleChangeEmail}
               onChangePassword={handleChangePassword}
-              onSubmit={handleAutarization}
+              onSubmit={handleAuthorization}
             />
           </Route>
-          {/*  <Route exact path="/sign-up" component={withRouter(Register)} />*/}
-          {/*  <Route exact path="/sign-in" component={withRouter(Login)} />*/}
         </Switch>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -268,8 +318,8 @@ function App() {
           onUpdateUser={handleUpdateUser}
           switchLoader={loader}
           buttonDisabled={isButtonDisabled}
-          onButtonDisabled={handeleButtonDisabled}
-          onButtonEnabled={handeleButtonEnabled}
+          onButtonDisabled={handleButtonDisabled}
+          onButtonEnabled={handleButtonEnabled}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
