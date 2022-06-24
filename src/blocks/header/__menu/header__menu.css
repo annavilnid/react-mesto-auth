@@ -1,0 +1,35 @@
+.header__menu {
+    top: 36px;
+    right: 30px;
+    width: 24px;
+    height: 3px;
+    background: #FFFFFF;
+    position: absolute;
+    border:none;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.header__menu:before {
+    top: -9px;
+}
+
+.header__menu:after {
+    top: 9px;
+}
+
+.header__menu:before,
+.header__menu:after {
+    content: '';
+    position:absolute;
+    right: 0;
+    width: 24px;
+    height: 3px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+}
+
+.header__menu:hover {
+    opacity: 0.6;
+
+}

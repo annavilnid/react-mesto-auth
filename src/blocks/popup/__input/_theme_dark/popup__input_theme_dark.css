@@ -1,0 +1,37 @@
+.popup__input_theme_dark {
+  color: #CCCCCC;
+  background-color: black;
+  border-bottom: 2px solid #CCCCCC;
+}
+
+.popup__input_theme_dark:first-of-type {
+  margin-top: 40px;
+}
+
+
+::-webkit-input-placeholder {
+  color: #CCCCCC;
+}
+
+:-moz-placeholder {
+  color: #CCCCCC;
+}
+
+::-moz-placeholder {
+  color: #CCCCCC;
+}
+
+:-ms-input-placeholder {
+  color: #CCCCCC;
+}
+
+::placeholder {
+  color: #CCCCCC;
+  opacity: 1;
+}
+
+@media screen and (min-width: 931px) {
+  .popup__input_theme_dark:first-of-type {
+    margin-top: 50px;
+  }
+}

@@ -1,0 +1,12 @@
+.popup__title_theme_dark {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+@media screen and (min-width: 931px) {
+  .popup__title_theme_dark {
+    font-size: 24px;
+  }
+}

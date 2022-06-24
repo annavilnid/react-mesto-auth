@@ -1,0 +1,18 @@
+.header__container {
+  margin-bottom: 27px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+@media screen and (min-width: 931px) {
+  .header__container {
+    flex-direction: row;
+    justify-content: flex-end;
+    border-bottom: none;
+    max-width: 70%;
+
+  }
+}

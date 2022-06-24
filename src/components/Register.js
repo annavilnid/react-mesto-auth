@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Sign from "./Sign";
-import auth from "../utils/Auth";
 import { Link, withRouter } from 'react-router-dom';
 
 function Register({onChangeEmail, onChangePassword, onSubmit}) {
@@ -12,14 +11,14 @@ function Register({onChangeEmail, onChangePassword, onSubmit}) {
         title={'Регистрация'}
         name={'sign-up'}
         // formName={'sign-up'}
-        btnName={'Зарегестрироваться'}
+        btnName={'Зарегистрироваться'}
         onChangeEmail={onChangeEmail}
         onChangePassword={onChangePassword}
         onSubmit={onSubmit}
       />
-      <div className="sign__redirection">
-        <p className="sign__text">Уже зарегистрированы?&nbsp;</p>
-        <Link to="/sign-in" className="sign__link">Войти</Link>
+      <div className="popup__redirection">
+        <p className="popup__text">Уже зарегистрированы?&nbsp;</p>
+        <Link to="/sign-in" className="popup__link">Войти</Link>
       </div>
     </>
   )

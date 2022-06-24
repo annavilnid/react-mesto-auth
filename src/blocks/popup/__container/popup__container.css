@@ -3,22 +3,23 @@
   position: relative;
   background-color: #FFFFFF;
   max-width: 282px;
+  min-height: 308px;
   border-radius: 10px;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
-  /*новое*/
-  border: 1px solid red;
   flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 @media screen and (min-width: 1280px) {
   .popup__container {
-    max-width: 430px;
+    min-height: 330px;
+    min-width: 430px;
     padding: 34px 36px 37px;
   }
 }

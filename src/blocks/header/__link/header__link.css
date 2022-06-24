@@ -1,3 +1,26 @@
 .header__link {
-    color: greenyellow;
+  position: absolute;
+  top: 36px;
+  right: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 931px) {
+  .header__link {
+    top: 50px;
+    right: 0;
+    font-size: 18px;
+    line-height: 22px;
+  }
 }

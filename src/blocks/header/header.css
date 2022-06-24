@@ -1,8 +1,10 @@
 .header {
+  position: relative;
   margin: 0 auto;
   padding-top: 28px;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   min-height: 56px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
@@ -15,6 +17,7 @@
 
 @media screen and (min-width: 931px) {
   .header {
+    justify-content: space-between;
     padding-top: 45px;
     max-width: 880px;
     min-height: 74px;

@@ -2,7 +2,6 @@ import React, {useState, useCallback, useEffect} from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Нeader';
 import Main from './Main';
-import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from './EditAvatarPopup'
 import AddPlacePopup from './AddPlacePopup';
@@ -17,6 +16,7 @@ import auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
 
 function App() {
+  const history = useHistory();
   // Хуки, управляющие внутренним состоянием.
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpe] = useState(false);
@@ -28,35 +28,37 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([ ]);
   const [loader, setLoader] = useState(false);
+  // Регистрация и Авторизация
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   // Выключение кнопки для валидации
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
+  // Проверка залогинен или зарегистрирован ли пользователь
   const [loggedIn, setLoggedIn] = useState(false);
-  //Проверка токена
+  const [registreted, setRegistreted] = useState(false);
+  // Проверка токена
   const [userEmail, setUserEmail] = React.useState('');
 
-
-  //------
-
-  function handelButtonDisabled() {
-    setIsButtonDisabled(true)
-  }
-
-  function handelButtonEnabled() {
-    setIsButtonDisabled(false)
-  }
- 
   // Получение данных при первичном открытии страницы
   useEffect(() => {
     api.getDataApi()
-     .then(([cardsData, userData]) => {
-       setCurrentUser(userData); 
-       setCards(cardsData); 
-     })
-     .catch(err => {
+      .then(([cardsData, userData]) => {
+        setCurrentUser(userData);
+        setCards(cardsData);
+      })
+      .catch(err => {
         console.log(err);
-     })
-   }, []);
+      })
+  }, []);
+
+  //Функции отключения кнопки в попапах
+  function handleButtonDisabled() {
+    setIsButtonDisabled(true)
+  }
+
+  function handleButtonEnabled() {
+    setIsButtonDisabled(false)
+  }
 
   // Функции переключающие состояние при открытии попапов.
   function handleEditProfileClick() {
@@ -120,12 +122,7 @@ function App() {
       .finally(() => setLoader(false))
   }
 
-  //____________Регистрация и Авторизация
-  const history = useHistory();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  // Инпуты при регистрации или авторизации
   function handleChangeEmail(e) {
     setEmail(e.target.value)
   }
@@ -134,35 +131,31 @@ function App() {
     setPassword(e.target.value)
   }
 
+  // Регистрация
   function handleRegistration(e){
     e.preventDefault()
-    console.log('Нам бы зарегестрироваться')
-    console.log(email);
-    console.log(password);
     auth.register(password, email)
       .then((resData) => {
         if (resData) {
           history.push("/sign-in");
           setEmail('')
           setPassword('')
+          setRegistreted(true)
         }
       })
       .catch(err => {
         console.log(err);
       })
+      .finally(() => setIsInfoTooltipOpen(true))
   }
 
+  // Авторизация
   function handleAuthorization(e){
     e.preventDefault()
-    console.log('Нам бы залогиниться')
-    console.log(email);
-    console.log(password);
     auth.authorize(password, email)
       .then((autData) => {
         if (autData) {
           setUserEmail(email)
-          console.log(autData);
-          console.log ('jwt', autData.token)
           localStorage.setItem('jwt', autData.token);
           setLoggedIn(true);
           history.push('/');
@@ -177,24 +170,22 @@ function App() {
   }
 
   // Выход из системы
-
   function logout() {
-    console.log('пытаемся выйти')
     setLoggedIn(false);
+    // удаляем jwt из хранилища
     localStorage.removeItem('jwt');
     setUserEmail('')
+    setPassword('')
     history.push('/sign-in');
   }
-  //______________
 
-
+  // проверяем по jwt был ли залогинен пользователь
   const handleCheckToken = useCallback(
     () => {
       const token = localStorage.getItem('jwt');
       auth.checkToken(token)
         .then(
           (userData) => {
-            console.log(userData);
             setUserEmail(userData.data.email)
             setLoggedIn(true);
             history.push('/');
@@ -203,20 +194,17 @@ function App() {
             console.log(err);
           }
         )
-
     },
-    [history],
+    [],
   )
 
-  React.useEffect(() => {
+  // пользователь зашел, нужно проверить с помощью jwt залогинен ли он
+  useEffect(() => {
     const token = localStorage.getItem('jwt');
-
     if (token) {
       handleCheckToken();
     }
-  }, [handleCheckToken])
-  //------
-
+  }, [])
 
   // Обработчик добавления новой карточки
   function handleAddPlace(newCard) {
@@ -280,6 +268,7 @@ function App() {
       <div className="page">
         <Header
           loggedOut={logout}
+          loggedIn={loggedIn}
           email={userEmail}
         />
         <Switch>
@@ -344,6 +333,7 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
           isloggedIn={loggedIn}
+          isRegistreted={registreted}
         />
       </div>
     </CurrentUserContext.Provider>

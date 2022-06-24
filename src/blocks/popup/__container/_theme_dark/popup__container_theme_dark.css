@@ -1,0 +1,13 @@
+.popup__container_theme_dark {
+  padding: 40px 0 20px;
+  min-width: 260px;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+@media screen and (min-width: 931px) {
+  .popup__container_theme_dark {
+    padding: 60px 0 15px;
+    min-width: 358px;
+  }
+}
