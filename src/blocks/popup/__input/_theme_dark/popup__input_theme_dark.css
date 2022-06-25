@@ -1,13 +1,12 @@
 .popup__input_theme_dark {
   color: #CCCCCC;
-  background-color: black;
+  background-color: #000000;
   border-bottom: 2px solid #CCCCCC;
 }
 
 .popup__input_theme_dark:first-of-type {
   margin-top: 40px;
 }
-
 
 ::-webkit-input-placeholder {
   color: #CCCCCC;

@@ -10,7 +10,7 @@ function Register({onChangeEmail, onChangePassword, onSubmit}) {
       <Sign
         title={'Регистрация'}
         name={'sign-up'}
-        // formName={'sign-up'}
+        formName={'sign-up'}
         btnName={'Зарегистрироваться'}
         onChangeEmail={onChangeEmail}
         onChangePassword={onChangePassword}

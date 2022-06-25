@@ -39,17 +39,19 @@ function App() {
   // Проверка токена
   const [userEmail, setUserEmail] = React.useState('');
 
-  // Получение данных при первичном открытии страницы
+  // Получение  данных при первичном открытии страницы
   useEffect(() => {
-    api.getDataApi()
-      .then(([cardsData, userData]) => {
-        setCurrentUser(userData);
-        setCards(cardsData);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }, []);
+    if (loggedIn) {
+      api.getDataApi()
+        .then(([cardsData, userData]) => {
+          setCurrentUser(userData);
+          setCards(cardsData);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }, [loggedIn]);
 
   //Функции отключения кнопки в попапах
   function handleButtonDisabled() {
@@ -165,8 +167,9 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+        setIsInfoTooltipOpen(true)
       })
-      .finally(() => setIsInfoTooltipOpen(true))
+      //.finally(() => setIsInfoTooltipOpen(true))
   }
 
   // Выход из системы
@@ -195,7 +198,7 @@ function App() {
           }
         )
     },
-    [],
+    [history],
   )
 
   // пользователь зашел, нужно проверить с помощью jwt залогинен ли он
@@ -204,7 +207,7 @@ function App() {
     if (token) {
       handleCheckToken();
     }
-  }, [])
+  }, [handleCheckToken])
 
   // Обработчик добавления новой карточки
   function handleAddPlace(newCard) {
